@@ -1,4 +1,40 @@
 body {
-    background-color: #000;
-    color: #FFF;
+  padding-top: 95px;
+}
+
+.portfolio-item {
+  margin-bottom: 30px;
+}
+
+.pagination {
+  margin-bottom: 30px;
+}
+
+.carousel-item {
+  height: 65vh;
+  min-height: 300px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.card-img-overlay {
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #17a2b8;
+  color: #FFFFFF;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.7;
+}
+
+.list-group {
+  list-style: decimal inside;
+}
+
+svg {
+  margin-bottom: 4px;
 }
