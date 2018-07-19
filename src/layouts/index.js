@@ -1,7 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import NavigationBar from '../containers/partials/NavigationBar'
 import Footer from '../containers/partials/Footer'
+
+import { getGenresMovie, getGenresSerie } from '../actions/GenreAction'
 
 class AppLayout extends React.Component {
 
@@ -12,9 +15,7 @@ class AppLayout extends React.Component {
   constructor(props) {
     super(props);
 
-    const { languageLocale } = props
-
-    this.initReferences(languageLocale)
+    this.initReferences()
   }
 
   /**
@@ -23,10 +24,11 @@ class AppLayout extends React.Component {
    *
    * @returns {void}
    */
-  initReferences(languageLocale) {
+  initReferences() {
     const { dispatch } = this.props
 
-    // dispatch(getStarList(languageLocale))
+    dispatch(getGenresMovie())
+    dispatch(getGenresSerie())
   }
 
   render() {
@@ -42,4 +44,10 @@ class AppLayout extends React.Component {
   }
 }
 
-export default AppLayout
+const mapStateToProps = (state) => {
+  return {
+    ...state
+  }
+}
+
+export default connect(mapStateToProps)(AppLayout)

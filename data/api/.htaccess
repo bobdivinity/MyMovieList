@@ -1,0 +1,23 @@
+Options +FollowSymlinks
+
+
+
+# Avoid CORS problems
+# Needs Headers Apache module
+#
+Header set Access-Control-Allow-Origin "*"
+
+
+
+# API mocks
+# Needs Rewrite Apache module
+#
+RewriteEngine On
+RewriteBase /
+
+RewriteRule	^/	                      test.html	[L]
+
+RewriteRule	^3/discover/movie	        discover_movie.json	[L]
+RewriteRule	^3/discover/tv	          discover_tv.json	[L]
+RewriteRule	^3/genre/movie/list       genre_movie_list.json	[L]
+RewriteRule	^3/genre/tv/list          genre_tv_list.json	[L]
