@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 import { get } from '../services/interfaces/ApiTMDB'
 
 /* eslint-disable */
@@ -42,7 +44,7 @@ export function getDiscoverMovie(params = {}) {
       ...defaultParamsMovie,
       ...params
     }).then(function (response) {
-      return response.data
+      return response.data.results
     })
   }
 }
@@ -59,7 +61,7 @@ export function getDiscoverSerie(params = {}) {
       ...defaultParamsSerie,
       ...params
     }).then(function (response) {
-      return response.data
+      return response.data.results
     })
   }
 }

@@ -33,7 +33,7 @@ export default function GenreReducers(state = initialState, action) {
         pending: true,
         success: false,
         error: null,
-        content: null
+        content: {}
       }
     }
   }
@@ -45,7 +45,7 @@ export default function GenreReducers(state = initialState, action) {
         pending: false,
         success: false,
         error: payload,
-        content: null
+        content: {}
       }
     }
   }

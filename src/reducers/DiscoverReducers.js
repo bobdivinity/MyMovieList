@@ -12,13 +12,13 @@ const initialState = {
     pending: false,
     success: false,
     error: null,
-    content: {}
+    content: []
   },
   series: {
     pending: false,
     success: false,
     error: null,
-    content: {}
+    content: []
   }
 }
 
@@ -33,7 +33,7 @@ export default function DiscoverReducers(state = initialState, action) {
         pending: true,
         success: false,
         error: null,
-        content: null
+        content: []
       }
     }
   }
@@ -45,7 +45,7 @@ export default function DiscoverReducers(state = initialState, action) {
         pending: false,
         success: false,
         error: payload,
-        content: null
+        content: []
       }
     }
   }
@@ -69,7 +69,7 @@ export default function DiscoverReducers(state = initialState, action) {
         pending: true,
         success: false,
         error: null,
-        content: null
+        content: []
       }
     }
   }
@@ -81,7 +81,7 @@ export default function DiscoverReducers(state = initialState, action) {
         pending: false,
         success: false,
         error: payload,
-        content: null
+        content: []
       }
     }
   }

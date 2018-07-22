@@ -1,6 +1,7 @@
 import React from 'react'
 import _ from 'lodash'
 import PropTypes from 'prop-types'
+import ClassNames from 'classnames'
 import {
   Row,
   Pagination,
@@ -11,12 +12,42 @@ import {
 import MovieItem from '../molecules/MovieItem'
 
 class TopicsList extends React.Component {
+  constructor(props) {
+    super(props)
+
+    console.log('constructeur ' + this.props.topics.length)
+
+    this.state = {
+      max: 4,
+      page: 1,
+      offset: 0,
+      elements: []
+    }
+  }
+
+  changePage(page) {
+    if(page !== this.state.page && page > 0 && page <= this.props.topics.length / this.state.max) {
+      this.state.page = page
+      this.state.offset = (this.state.page - 1) * this.state.max
+    }
+    console.log(this.state.page)
+
+    this.getElementsWithPagination()
+  }
+
+  getElementsWithPagination() {
+    this.state.elements = _.slice(this.props.topics, this.state.offset, this.state.offset + this.state.max)
+  }
+
   render() {
     const {
       title,
       subtitle,
+      type,
       topics
     } = this.props
+
+    this.getElementsWithPagination()
 
     return (
       <div>
@@ -25,17 +56,34 @@ class TopicsList extends React.Component {
         </h1>
 
         <Row>
-          {_.map(topics, (topic, index) => (
-            <MovieItem item={topic} key={index} />
+          {_.map(this.state.elements, (element, index) => (
+            <MovieItem item={element} type={type} key={index} />
           ))}
         </Row>
 
         <Pagination listClassName='justify-content-center'>
-          <PaginationItem>
-            <PaginationLink previous href='#' />
+          <PaginationItem className={ClassNames({disabled: (this.state.offset === 0)})}>
+            <PaginationLink previous onClick={() => this.changePage(this.state.page - 1)} />
           </PaginationItem>
-          <PaginationItem>
-            <PaginationLink next href='#' />
+
+          {_.map(_.range(1, (topics.length / this.state.max) + 1), (page, index) => (
+            <PaginationItem key={index} className={
+              ClassNames(
+                { active: (this.state.page === page) }
+              )
+            }>
+              <PaginationLink onClick={() => this.changePage(page)} >
+                {page}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+
+          <PaginationItem className={
+            ClassNames(
+              { disabled: ((this.state.offset + this.state.max) === topics.length)}
+            )
+          }>
+            <PaginationLink next onClick={() => this.changePage(this.state.page + 1)} />
           </PaginationItem>
         </Pagination>
       </div>
@@ -46,6 +94,7 @@ class TopicsList extends React.Component {
 TopicsList.propTypes = {
   title: PropTypes.string.isRequired,
   subtitle: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   topics: PropTypes.array.isRequired
 }
 
@@ -53,26 +102,31 @@ TopicsList.propTypes = {
 TopicsList.defaultProps = {
   title: 'This is a title',
   subtitle: 'This is a subtitle',
+  type: 'movie',
   topics: [
     {
+      id: 1,
       title: 'Thor : Ragnarok (2017)',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
       url: 'http://placehold.it/325x448',
       rate: 4.1
     },
     {
+      id: 2,
       title: 'Thor : Ragnarok (2017)',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
       url: 'http://placehold.it/325x448',
       rate: 4.1
     },
     {
+      id: 3,
       title: 'Thor : Ragnarok (2017)',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
       url: 'http://placehold.it/325x448',
       rate: 4.1
     },
     {
+      id: 4,
       title: 'Thor : Ragnarok (2017)',
       description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida pellentesque urna varius vitae.',
       url: 'http://placehold.it/325x448',
