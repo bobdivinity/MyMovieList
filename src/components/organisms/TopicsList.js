@@ -15,13 +15,10 @@ class TopicsList extends React.Component {
   constructor(props) {
     super(props)
 
-    console.log('constructeur ' + this.props.topics.length)
-
     this.state = {
       max: 4,
       page: 1,
-      offset: 0,
-      elements: []
+      offset: 0
     }
   }
 
@@ -30,13 +27,11 @@ class TopicsList extends React.Component {
       this.state.page = page
       this.state.offset = (this.state.page - 1) * this.state.max
     }
-    console.log(this.state.page)
 
-    this.getElementsWithPagination()
-  }
-
-  getElementsWithPagination() {
-    this.state.elements = _.slice(this.props.topics, this.state.offset, this.state.offset + this.state.max)
+    this.setState({
+      page: page,
+      offset: (page - 1) * this.state.max
+    })
   }
 
   render() {
@@ -47,7 +42,7 @@ class TopicsList extends React.Component {
       topics
     } = this.props
 
-    this.getElementsWithPagination()
+    let elements = _.slice(topics, this.state.offset, this.state.offset + this.state.max)
 
     return (
       <div>
@@ -56,7 +51,7 @@ class TopicsList extends React.Component {
         </h1>
 
         <Row>
-          {_.map(this.state.elements, (element, index) => (
+          {_.map(elements, (element, index) => (
             <MovieItem item={element} type={type} key={index} />
           ))}
         </Row>

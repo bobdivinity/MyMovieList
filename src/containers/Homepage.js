@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import _ from 'lodash'
 import {
   Container,
   Row,
@@ -15,12 +16,6 @@ import { getDiscoveredItems } from '../selectors/DiscoveredItems'
 import { getDiscoverMovie, getDiscoverSerie } from '../actions/DiscoverAction'
 
 class Homepage extends React.Component {
-  // constructor(props) {
-  //   super(props)
-  //
-  //
-  // }
-
   componentDidMount() {
     const { dispatch } = this.props
 
@@ -35,18 +30,18 @@ class Homepage extends React.Component {
       <Container fluid>
         <Row>
           <Col md='9'>
-            <TopicsList
+            {!_.isEmpty(discovered_movies) && <TopicsList
               type='movie'
               title='Films'
               subtitle='actualités'
               topics={discovered_movies}
-            />
-            <TopicsList
+            />}
+            {!_.isEmpty(discovered_series) && <TopicsList
               type='serie'
               title='Séries'
               subtitle='actualités'
               topics={discovered_series}
-            />
+            />}
           </Col>
           <Col md='3'>
             <GenresWidget />
